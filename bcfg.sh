@@ -112,7 +112,6 @@ nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherel
 
 
 function nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd(){
-
 case "$ipath" in
 "B"|"b" ) path="/usr/bin/$inst";;
 "L"|"l" ) path="/home/$USER/.local/bin/$inst";;
@@ -132,8 +131,8 @@ esac
 
 function iR(){
 wget https://raw.githubusercontent.com/Russanandres/YDE/main/de.sh
-   cp -v ./de.sh $path/$inst
-   chmod -v +x $path/$inst
+   sudo cp -v ./de.sh $path/$inst
+   sudo chmod -v +x $path/$inst
    if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run YDE write $inst"
    exit
@@ -141,8 +140,8 @@ wget https://raw.githubusercontent.com/Russanandres/YDE/main/de.sh
 
 function iD(){
 wget https://raw.githubusercontent.com/Russanandres/YDE/main/dev.sh
-   cp -v ./dev.sh $path/$inst
-   chmod -v +x $path/$inst
+   sudo cp -v ./dev.sh $path/$inst
+   sudo chmod -v +x $path/$inst
    if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run YDE dev write $inst"
    exit
@@ -151,8 +150,8 @@ wget https://raw.githubusercontent.com/Russanandres/YDE/main/dev.sh
 function iK(){
 sudo apt install kdialog
  wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/KBatus.sh
-   cp -v ./KBatus.sh $path/$inst
-   chmod -v +x $path/$inst
+   sudo cp -v ./KBatus.sh $path/$inst
+   sudo chmod -v +x $path/$inst
    if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run Batus write $inst"
    exit
@@ -161,8 +160,8 @@ sudo apt install kdialog
 
 function iG(){
 wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/BatusLin.sh
-   cp -v ./BatusLin.sh $path/$inst
-   chmod -v +x $path/$inst
+   sudo cp -v ./BatusLin.sh $path/$inst
+   sudo chmod -v +x $path/$inst
    if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run Batus write $inst"
    exit
@@ -170,8 +169,8 @@ wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versi
 
 function iT(){
 wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/For%20Legacy%20Systems/BFL.sh
-   cp -v ./BFL.sh $path/$inst
-   chmod -v +x $path/$inst
+   sudo cp -v ./BFL.sh $path/$inst
+   sudo chmod -v +x $path/$inst
    if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run BFL write $inst"
    exit
