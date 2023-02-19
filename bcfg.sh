@@ -106,7 +106,7 @@ echo "         - Type [B] to /usr/bin/"
 echo "         - Type [L] to /home/$USER/.local/bin/"
 # echo "         - Type [Y] to Your custom path."
 echo
-read -sn1 path
+read -sn1 ipath
 nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd;}
 
 
@@ -124,7 +124,7 @@ case "$batusver" in
 "T"|"t" ) inst="bfl";iT;;
 esac
 
-case "$path" in
+case "$ipath" in
 "B"|"b" ) path="/usr/bin/$inst";;
 "L"|"l" ) path="/home/$USER/.local/bin/$inst";;
 esac
