@@ -113,6 +113,12 @@ nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherel
 
 function nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd(){
 
+case "$ipath" in
+"B"|"b" ) path="/usr/bin/$inst";;
+"L"|"l" ) path="/home/$USER/.local/bin/$inst";;
+esac
+}
+
 case "$yde" in
 "R"|"r" ) inst="runui";iR;;
 "D"|"d" ) inst="runuidev";iD;;
@@ -123,12 +129,6 @@ case "$batusver" in
 "G"|"g" ) inst="batus";iG;;
 "T"|"t" ) inst="bfl";iT;;
 esac
-
-case "$ipath" in
-"B"|"b" ) path="/usr/bin/$inst";;
-"L"|"l" ) path="/home/$USER/.local/bin/$inst";;
-esac
-}
 
 function iR(){
 wget https://raw.githubusercontent.com/Russanandres/YDE/main/de.sh
