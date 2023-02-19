@@ -17,17 +17,15 @@ BYellow='\033[1;33m'
 No_color='\033[0m'
 
 function exitscr(){
- clear
+ if [ "$1" != "--debug" ]; then clear; fi
  echo "bConf - 2023. Russanandres"
  date
  exit
 }
 
 
-
-
 function startbconf(){
-clear
+if [ "$1" != "--debug" ]; then clear; fi
 parts=4
 echo
 echo "   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐"
@@ -44,7 +42,7 @@ echo "       - Press ENTER to continue."
 echo "       - Press CTRL + C to exit."
 echo
 pause
-clear
+if [ "$1" != "--debug" ]; then clear; fi
 echo
 echo "   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐"
 echo "   │ Configurator                                                                         [part 2 of $parts] │"
@@ -60,7 +58,7 @@ read -sn1 two
 if [ "$two" == "Y" ] || [ "$two" == "y" ]; then yde; else confbat; fi
 }
 function yde(){
-clear
+if [ "$1" != "--debug" ]; then clear; fi
 echo
 echo "   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐"
 echo "   │ Configurator                                                                         [part 3 of $parts] │"
@@ -75,7 +73,7 @@ echo
 read -sn1 yde
 confpath;}
 function confbat(){
-clear
+if [ "$1" != "--debug" ]; then clear; fi
 echo
 echo "   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐"
 echo "   │ Configurator                                                                         [part 3 of $parts] │"
@@ -93,7 +91,7 @@ echo
 read -sn1 batusver
 confpath;}
 function confpath(){
-clear
+if [ "$1" != "--debug" ]; then clear; fi
 echo
 echo "   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐"
 echo "   │ Configurator                                                                         [part 4 of $parts] │"
@@ -134,18 +132,18 @@ esac
 
 function iR(){
 wget https://raw.githubusercontent.com/Russanandres/YDE/main/de.sh
-   cp ./de.sh $path
-   chmod +x $path
-   clear
+   cp -v ./de.sh $path
+   chmod -v +x $path
+   if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run YDE write $inst"
    exit
 }
 
 function iD(){
 wget https://raw.githubusercontent.com/Russanandres/YDE/main/dev.sh
-   cp ./dev.sh $path
-   chmod +x $path
-   clear
+   cp -v ./dev.sh $path
+   chmod -v +x $path
+   if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run YDE dev write $inst"
    exit
 }
@@ -153,9 +151,9 @@ wget https://raw.githubusercontent.com/Russanandres/YDE/main/dev.sh
 function iK(){
 sudo apt install kdialog
  wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/KBatus.sh
-   cp ./KBatus.sh $path
-   chmod +x $path
-   clear
+   cp -v ./KBatus.sh $path
+   chmod -v +x $path
+   if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run Batus write $inst"
    exit
 }
@@ -163,18 +161,18 @@ sudo apt install kdialog
 
 function iG(){
 wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/BatusLin.sh
-   cp ./BatusLin.sh $path
-   chmod +x $path
-   clear
+   cp -v ./BatusLin.sh $path
+   chmod -v +x $path
+   if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run Batus write $inst"
    exit
 }
 
 function iT(){
 wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/For%20Legacy%20Systems/BFL.sh
-   cp ./BFL.sh $path
-   chmod +x $path
-   clear
+   cp -v ./BFL.sh $path
+   chmod -v +x $path
+   if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run BFL write $inst"
    exit
 }
@@ -182,7 +180,7 @@ wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/For%20Legac
 
 
 
-clear
+if [ "$1" != "--debug" ]; then clear; fi
 echo -e "${BYellow}bConf ver$VER by Russanandres. Now is $(date)${No_color}"
 echo
 echo
@@ -219,18 +217,18 @@ if [ "$?" != "0" ]; then
   wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/$gitVER.sh
   echo $PATH | grep "$USER/.local/bin"
   if [ "$?" == "1" ]; then
-   cp ./$gitVER.sh $USER/.local/bin/kbatus
-   chmod +x $USER/.local/bin/kbatus
-   clear
+   cp -v ./$gitVER.sh $USER/.local/bin/kbatus
+   chmod -v +x $USER/.local/bin/kbatus
+   if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run Batus write kbatus"
    exit
   fi
   echo
   echo
   echo "To continue please enter admin password:"
-  sudo cp ./$gitVER.sh /usr/bin/kbatus
-  sudo chmod +x /usr/bin/kbatus
-  clear
+  sudo cp -v ./$gitVER.sh /usr/bin/kbatus
+  sudo chmod -v +x /usr/bin/kbatus
+  if [ "$1" != "--debug" ]; then clear; fi
   echo "All done! To run Batus write kbatus"
   exit
   fi
@@ -248,9 +246,9 @@ if [ "$?" != "0" ]; then
   wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/$gitVER1.sh
   echo $PATH | grep "$USER/.local/bin"
   if [ "$?" == "1" ]; then
-   cp ./$gitVER1.sh $USER/.local/bin/batus
-   chmod +x $USER/.local/bin/batus
-   clear
+   cp -v ./$gitVER1.sh $USER/.local/bin/batus
+   chmod -v +x $USER/.local/bin/batus
+   if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run Batus write batus"
    exit
   fi
@@ -258,9 +256,9 @@ if [ "$?" != "0" ]; then
   echo
   echo
   echo "To continue please enter admin password:"
-  sudo cp ./$gitVER1.sh /usr/bin/batus
-  sudo chmod +x /usr/bin/batus
-  clear
+  sudo cp -v ./$gitVER1.sh /usr/bin/batus
+  sudo chmod -v +x /usr/bin/batus
+  if [ "$1" != "--debug" ]; then clear; fi
   echo "All done! To run Batus write batus"
   exit
 fi
@@ -268,18 +266,18 @@ fi
 wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/For%20Legacy%20Systems/BFL.sh
 echo $PATH | grep "$USER/.local/bin"
   if [ "$?" == "1" ]; then
-   cp ./BFL.sh $USER/.local/bin/bfl
-   chmod +x $USER/.local/bin/bfl
-   clear
+   cp -v ./BFL.sh $USER/.local/bin/bfl
+   chmod -v +x $USER/.local/bin/bfl
+   if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run Batus write bfl"
    exit
   fi
   echo
   echo
   echo "To continue please enter admin password:"
-  sudo cp ./BFL.sh /usr/bin/bfl
-  sudo chmod +x /usr/bin/bfl
-  clear
+  sudo cp -v ./BFL.sh /usr/bin/bfl
+  sudo chmod -v +x /usr/bin/bfl
+  if [ "$1" != "--debug" ]; then clear; fi
   echo "All done! To run Batus write bfl"
   exit
 
