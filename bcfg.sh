@@ -187,7 +187,7 @@ if [ "$1" != "--debug" ]; then clear; fi
 echo -e "${BYellow}bConf ver$VER by Russanandres. Now is $(date)${No_color}"
 echo
 echo
-echo -e "${BIGreen}[c]${No_color} - ${BIBlue}Let me choose all for me.${No_color}"
+echo -e "${BIGreen}[c]${No_color} - ${BIBlue}Let me setup everything.${No_color}"
 echo -e "${BIGreen}[any button]${No_color} - ${BIRed}I NOTHING UNDERSTAND JUST INSTALL IT!!!${No_color}"
 echo
 read -sn1 ch
