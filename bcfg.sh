@@ -113,8 +113,8 @@ nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherel
 
 function nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd(){
 case "$ipath" in
-"B"|"b" ) path="/usr/bin/$inst";;
-"L"|"l" ) path="/home/$USER/.local/bin/$inst";;
+"B"|"b" ) path="/usr/bin$inst";;
+"L"|"l" ) path="/home/$USER/.local/bin$inst";;
 esac
 
 case "$yde" in
@@ -131,6 +131,7 @@ esac
 
 function iR(){
 wget https://raw.githubusercontent.com/Russanandres/YDE/main/de.sh
+   sudo apt install $dede -y
    sudo cp -v ./de.sh $path/$inst
    sudo chmod -v +x $path/$inst
    if [ "$1" != "--debug" ]; then clear; fi
@@ -140,6 +141,7 @@ wget https://raw.githubusercontent.com/Russanandres/YDE/main/de.sh
 
 function iD(){
 wget https://raw.githubusercontent.com/Russanandres/YDE/main/dev.sh
+   sudo apt install $dede -y
    sudo cp -v ./dev.sh $path/$inst
    sudo chmod -v +x $path/$inst
    if [ "$1" != "--debug" ]; then clear; fi
@@ -150,6 +152,7 @@ wget https://raw.githubusercontent.com/Russanandres/YDE/main/dev.sh
 function iK(){
 sudo apt install kdialog
  wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/KBatus.sh
+   sudo apt install $kbade -y
    sudo cp -v ./KBatus.sh $path/$inst
    sudo chmod -v +x $path/$inst
    if [ "$1" != "--debug" ]; then clear; fi
@@ -160,6 +163,7 @@ sudo apt install kdialog
 
 function iG(){
 wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/BatusLin.sh
+   sudo apt install $bade -y
    sudo cp -v ./BatusLin.sh $path/$inst
    sudo chmod -v +x $path/$inst
    if [ "$1" != "--debug" ]; then clear; fi
