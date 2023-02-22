@@ -1,6 +1,5 @@
 #!/bin/bash
-let "VER = $(date +%H) + 12 + $(date +%S)"
-gitVER1="batus14"
+trap "exitscr" SIGINT
 
 intde="/usr/bin/runui"
 intbat="/usr/bin/batus"
@@ -18,10 +17,21 @@ No_color='\033[0m'
 
 function exitscr(){
  if [ "$1" != "--debug" ]; then clear; fi
- echo "bConf - 2023. Russanandres"
- date
+ echo -e "batusConfigurator from 2023. By ${BIBlue}Russanandres${No_color}"
+ echo
+ echo -e "Now is - ${BIBlue}$(date +%d/%m/%y)${No_color}. Current time - ${BIBlue}$(date +%T)${No_color}"
  exit
 }
+
+function ijusttryingtodoagoodinterface(){
+clear
+echo
+echo -e "${BIGreen}[Any button]${No_color} - ${BIRed}I NOTHING UNDERSTAND JUST INSTALL IT!!!${No_color}"
+echo -e "${BIGreen}[c]${No_color} - ${BIBlue}Let me setup everything.${No_color}"
+echo
+read -sn1
+}
+
 
 
 function startbconf(){
@@ -184,17 +194,17 @@ wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/For%20Legac
 
 
 if [ "$1" != "--debug" ]; then clear; fi
-echo -e "${BYellow}bConf ver$VER by Russanandres. Now is $(date)${No_color}"
-echo
-echo
+# echo -e "${BYellow}bConf by Russanandres. Now is $(date)${No_color}"
+# echo
+# echo
 echo -e "${BIGreen}[c]${No_color} - ${BIBlue}Let me setup everything.${No_color}"
 echo -e "${BIGreen}[any button]${No_color} - ${BIRed}I NOTHING UNDERSTAND JUST INSTALL IT!!!${No_color}"
 echo
 read -sn1 ch
 case "$ch" in
 "c" ) startbconf;;
+"/" ) ijusttryingtodoagoodinterface;;
 *   )
-
 
 
 if [ -f /usr/bin/kbatus ]; then sudo rm /usr/bin/kbatus; fi
@@ -206,21 +216,23 @@ if [ -f $USER/.local/bin/kbatus ]; then rm $USER/.local/bin/kbatus; fi
 if [ -f $USER/.local/bin/batus ]; then rm $USER/.local/bin/batus; fi
 if [ -f $USER/.local/bin/bfl ]; then rm $USER/.local/bin/bfl; fi
 
+# if [ -f $USER/.config/YDE/settings.conf ]; then source $USER/.config/YDE/settings.conf; sudo rm $int; fi
+
 
 
 if [ "$XDG_SESSION_TYPE" == "wayland" ] || [ "$XDG_SESSION_TYPE" == "x11" ]; then
 kdialog >> /dev/null
 if [ "$?" != "0" ]; then
- cibwkd=1
+ working=1
  sudo apt install kdialog
   if [ "$?" != "0" ]; then
-   cibwkd=0
+   working=0
   fi
-  if [ "$cibwkd" == "1" ]; then
-  wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/$gitVER.sh
+  if [ "$working" == "1" ]; then
+  wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/KBatus.sh
   echo $PATH | grep "$USER/.local/bin"
   if [ "$?" == "1" ]; then
-   cp -v ./$gitVER.sh $USER/.local/bin/kbatus
+   cp -v ./KBatus.sh.sh $USER/.local/bin/kbatus
    chmod -v +x $USER/.local/bin/kbatus
    if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run Batus write kbatus"
@@ -229,7 +241,7 @@ if [ "$?" != "0" ]; then
   echo
   echo
   echo "To continue please enter admin password:"
-  sudo cp -v ./$gitVER.sh /usr/bin/kbatus
+  sudo cp -v ./Batus.sh.sh /usr/bin/kbatus
   sudo chmod -v +x /usr/bin/kbatus
   if [ "$1" != "--debug" ]; then clear; fi
   echo "All done! To run Batus write kbatus"
@@ -240,16 +252,16 @@ fi
 
 bash --version >> /dev/null
 if [ "$?" != "0" ]; then
- cib=1
+ working=1
  sudo apt install bash
   if [ "$?" != "0" ]; then
-   cib=0
+   working=0
   fi
-  if [ "$cib" == "1" ]; then
-  wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/$gitVER1.sh
+  if [ "$working" == "1" ]; then
+  wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/Batus.sh
   echo $PATH | grep "$USER/.local/bin"
   if [ "$?" == "1" ]; then
-   cp -v ./$gitVER1.sh $USER/.local/bin/batus
+   cp -v ./Batus.sh.sh $USER/.local/bin/batus
    chmod -v +x $USER/.local/bin/batus
    if [ "$1" != "--debug" ]; then clear; fi
    echo "All done! To run Batus write batus"
@@ -259,7 +271,7 @@ if [ "$?" != "0" ]; then
   echo
   echo
   echo "To continue please enter admin password:"
-  sudo cp -v ./$gitVER1.sh /usr/bin/batus
+  sudo cp -v ./Batus.sh.sh /usr/bin/batus
   sudo chmod -v +x /usr/bin/batus
   if [ "$1" != "--debug" ]; then clear; fi
   echo "All done! To run Batus write batus"
@@ -284,6 +296,25 @@ echo $PATH | grep "$USER/.local/bin"
   echo "All done! To run Batus write bfl"
   exit
 
+
+### I know that it part of code can't be run.
+wget https://raw.githubusercontent.com/Russanandres/YDE/main/YDE_fallback.sh
+echo $PATH | grep "$USER/.local/bin"
+  if [ "$?" == "1" ]; then
+   cp -v ./YDE_fallback.sh $USER/.local/bin/safeui
+   chmod -v +x $USER/.local/bin/safeui
+   if [ "$1" != "--debug" ]; then clear; fi
+   echo "All done! To run Batus write safeui"
+   exit
+  fi
+  echo
+  echo
+  echo "To continue please enter admin password:"
+  sudo cp -v ./YDE_fallback.sh /usr/bin/safeui
+  sudo chmod -v +x /usr/bin/safeui
+  if [ "$1" != "--debug" ]; then clear; fi
+  echo "All done! To run Batus write safeui"
+  exit
 ;;
 esac
 
