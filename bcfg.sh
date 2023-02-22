@@ -9,12 +9,15 @@ dede="ncal dialog wget bash w3m w3m-img mc mpv aplay grep sudo"
 bade="dialog adb android-libadb fastboot grep sudo"
 kbade="kdialog dialog ncal adb fastboot grep sudo"
 
+Green='\033[0;32m'
+ICyan='\033[0;96m'
 BIRed='\033[1;91m'
 BIBlue='\033[1;94m'
 BIGreen='\033[1;92m'
 BYellow='\033[1;33m'
 No_color='\033[0m'
 
+function pause(){ read -sn1 pause; }
 function exitscr(){
  if [ "$1" != "--debug" ]; then clear; fi
  echo -e "batusConfigurator from 2023. By ${BIBlue}Russanandres${No_color}"
@@ -34,91 +37,125 @@ read -sn1
 
 
 
+
+function selINconfERROR(){
+clear
+echo -e "${BIRed}
+    ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐
+    │ Configurator error!                                                                 [Setup error!] │
+    └────────────────────────────────────────────────────────────────────────────────────────────────────┘${No_color}
+
+
+       Somewhere in Configurator exist ${BIRed}error!${No_color}
+
+       Try to check ${Green}data${No_color}, what you try to shove.
+       If your data 100% right, create issue on github.
+
+${BIBlue}        - Press ENTER to continue.
+        - Press CTRL + C to exit.${No_color}
+"
+pause
+$scr
+}
+
+# selINconfERROR
+
 function startbconf(){
+scr="startbconf"
 if [ "$1" != "--debug" ]; then clear; fi
 parts=4
 echo
-echo "   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐"
-echo "   │ Configurator                                                                         [part 1 of $parts] │"
-echo "   └────────────────────────────────────────────────────────────────────────────────────────────────────┘"
-echo
-echo
-echo "      Welcome to the bConfigurator."
-echo
-echo "      We will ask you questions to set up all programs"
-echo "      Application changes will be after all questions."
-echo
-echo "       - Press ENTER to continue."
-echo "       - Press CTRL + C to exit."
+echo -e "${Green}
+   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐
+   │ bConfigurator                                                                        [part 1 of $parts] │
+   └────────────────────────────────────────────────────────────────────────────────────────────────────┘${No_color}
+
+
+${ICyan}      Welcome to the bConfigurator!${No_color}
+
+      We will ask you $parts questions to set up all programs
+      All changes will be made ${BIRed}after${No_color} all questions.
+
+${BIBlue}       - Press ENTER to continue.
+       - Press CTRL + C to exit."${No_color}
 echo
 pause
 if [ "$1" != "--debug" ]; then clear; fi
 echo
-echo "   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐"
-echo "   │ Configurator                                                                         [part 2 of $parts] │"
-echo "   └────────────────────────────────────────────────────────────────────────────────────────────────────┘"
-echo
-echo
-echo "        Install Batus or YDE?"
-echo
-echo "         - Type [B] to Batus"
-echo "         - Type [Y] to YDE."
+echo -e "${Green}
+   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐
+   │ bConfigurator                                                                        [part 2 of $parts] │
+   └────────────────────────────────────────────────────────────────────────────────────────────────────┘${No_color}
+
+
+        Install Batus or YDE?
+
+${BIBlue}         - Type [B] to Batus
+         - Type [Y] to YDE."${No_color}
 echo
 read -sn1 two
-if [ "$two" == "Y" ] || [ "$two" == "y" ]; then yde; else confbat; fi
+if [ "$two" == "Y" ] || [ "$two" == "y" ]; then yde; fi
+if [ "$two" == "B" ] || [ "$two" == "b" ]; then confbat;else selINconfERROR; fi
 }
 function yde(){
+scr="yde"
 if [ "$1" != "--debug" ]; then clear; fi
 echo
-echo "   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐"
-echo "   │ Configurator                                                                         [part 3 of $parts] │"
-echo "   └────────────────────────────────────────────────────────────────────────────────────────────────────┘"
-echo
-echo
-echo "        What version of YDE?"
-echo
-echo "         - Type [R] to install release version."
-echo "         - Type [D] to install debug dev version."
+echo -e "${Green}
+   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐
+   │ bConfigurator                                                                        [part 3 of $parts] │
+   └────────────────────────────────────────────────────────────────────────────────────────────────────┘${No_color}
+
+
+        What version of YDE?
+
+${BIBlue}         - Type [R] to install release version.
+         - Type [D] to install debug dev version."${No_color}
 echo
 read -sn1 yde
-confpath;}
+if [ "$yde" == "R" ] || [ "$yde" == "r" ] || [ "$yde" == "D" ] || [ "$yde" == "d" ]; then confpath;else selINconfERROR; fi;}
 function confbat(){
+scr="confbat"
 if [ "$1" != "--debug" ]; then clear; fi
 echo
-echo "   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐"
-echo "   │ Configurator                                                                         [part 3 of $parts] │"
-echo "   └────────────────────────────────────────────────────────────────────────────────────────────────────┘"
-echo
-echo
-echo "        What Batus?"
-echo
-echo "         - Type [K] to Kdialog Batus."
-echo "         - Type [G] to Dialog Batus."
-echo "         - Type [T] to Text Batus."
-# echo "         - Type [] to Graphical Dialog menu."
-# echo "         - Type [] to Text menu."
+echo -e "${Green}
+   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐
+   │ bConfigurator                                                                        [part 3 of $parts] │
+   └────────────────────────────────────────────────────────────────────────────────────────────────────┘${No_color}
+
+
+        What Batus?
+
+${BIBlue}         - Type [K] to Kdialog Batus.
+         - Type [G] to Dialog Batus.
+         - Type [T] to Text Batus.${No_color}
+"
+#         - Type [] to Graphical Dialog menu.
+#         - Type [] to Text menu.
 echo
 read -sn1 batusver
-confpath;}
+if [ "$batusver" == "K" ] || [ "$batusver" == "k" ] || [ "$batusver" == "G" ] || [ "$batusver" == "g" ] || [ "$batusver" == "T" ] || [ "$batusver" == "t" ]; then confpath;else selINconfERROR; fi;}
 function confpath(){
+scr="confpath"
 if [ "$1" != "--debug" ]; then clear; fi
 echo
-echo "   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐"
-echo "   │ Configurator                                                                         [part 4 of $parts] │"
-echo "   └────────────────────────────────────────────────────────────────────────────────────────────────────┘"
-echo
-echo
-echo "        Select install path"
-echo "        Warning! To install in /home/$USER/.local/bin/ you need enable this path!"
-echo "        If you don't know how to enable it, install in /usr/bin!"
-echo
-echo "         - Type [B] to /usr/bin/"
-echo "         - Type [L] to /home/$USER/.local/bin/"
-# echo "         - Type [Y] to Your custom path."
+echo -e "${Green}
+   ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐
+   │ bConfigurator                                                                        [part 4 of $parts] │
+   └────────────────────────────────────────────────────────────────────────────────────────────────────┘${No_color}
+
+
+        Select install path:
+        ${BIRed}Warning! To install in /home/$USER/.local/bin/ you need enable this path!
+        If you don't know how to enable it, select /usr/bin!${No_color}
+
+${BIBlue}         - Type [B] to /usr/bin/
+         - Type [L] to /home/$USER/.local/bin/${No_color}
+"
+#         - Type [Y] to Your custom path.
 echo
 read -sn1 ipath
-nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd;}
-
+if [ "$ipath" == "B" ] || [ "$ipath" == "b" ] || [ "$ipath" == "L" ] || [ "$ipath" == "l" ]; then nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd;else selINconfERROR; fi;}
 
 
 function nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd(){
@@ -192,7 +229,6 @@ wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/For%20Legac
 
 
 
-
 if [ "$1" != "--debug" ]; then clear; fi
 # echo -e "${BYellow}bConf by Russanandres. Now is $(date)${No_color}"
 # echo
@@ -203,7 +239,7 @@ echo
 read -sn1 ch
 case "$ch" in
 "c" ) startbconf;;
-"/" ) ijusttryingtodoagoodinterface;;
+"=" ) ijusttryingtodoagoodinterface;;
 *   )
 
 
@@ -217,6 +253,55 @@ if [ -f $USER/.local/bin/batus ]; then rm $USER/.local/bin/batus; fi
 if [ -f $USER/.local/bin/bfl ]; then rm $USER/.local/bin/bfl; fi
 
 # if [ -f $USER/.config/YDE/settings.conf ]; then source $USER/.config/YDE/settings.conf; sudo rm $int; fi
+
+
+
+
+
+
+
+
+
+if [ "$XDG_SESSION_TYPE" == "wayland" ] || [ "$XDG_SESSION_TYPE" == "x11" ]; then
+kdialog >> /dev/null
+if [ "$?" != "0" ]; then
+ working=1
+ sudo apt install kdialog
+  if [ "$?" != "0" ]; then
+   working=0
+  fi
+  if [ "$working" == "1" ]; then
+  wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/KBatus.sh
+  echo $PATH | grep "$USER/.local/bin"
+  if [ "$?" == "1" ]; then
+   cp -v ./KBatus.sh.sh $USER/.local/bin/kbatus
+   chmod -v +x $USER/.local/bin/kbatus
+   if [ "$1" != "--debug" ]; then clear; fi
+   echo "All done! To run Batus write kbatus"
+   exit
+  fi
+  echo
+  echo
+  echo "To continue please enter admin password:"
+  sudo cp -v ./Batus.sh.sh /usr/bin/kbatus
+  sudo chmod -v +x /usr/bin/kbatus
+  if [ "$1" != "--debug" ]; then clear; fi
+  echo "All done! To run Batus write kbatus"
+  exit
+  fi
+fi
+fi
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -317,5 +402,4 @@ echo $PATH | grep "$USER/.local/bin"
   exit
 ;;
 esac
-
-
+echo "What if anywhere exist stairway to heavy code?"
