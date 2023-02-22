@@ -58,8 +58,6 @@ pause
 $scr
 }
 
-# selINconfERROR
-
 function startbconf(){
 scr="startbconf"
 if [ "$1" != "--debug" ]; then clear; fi
@@ -73,7 +71,7 @@ echo -e "${Green}
 
 ${ICyan}      Welcome to the bConfigurator!${No_color}
 
-      We will ask you $parts questions to set up all programs
+      We will ask you $parts questions to set up all things.
       All changes will be made ${BIRed}after${No_color} all questions.
 
 ${BIBlue}       - Press ENTER to continue.
@@ -253,56 +251,6 @@ if [ -f $USER/.local/bin/batus ]; then rm $USER/.local/bin/batus; fi
 if [ -f $USER/.local/bin/bfl ]; then rm $USER/.local/bin/bfl; fi
 
 # if [ -f $USER/.config/YDE/settings.conf ]; then source $USER/.config/YDE/settings.conf; sudo rm $int; fi
-
-
-
-
-
-
-
-
-
-if [ "$XDG_SESSION_TYPE" == "wayland" ] || [ "$XDG_SESSION_TYPE" == "x11" ]; then
-kdialog >> /dev/null
-if [ "$?" != "0" ]; then
- working=1
- sudo apt install kdialog
-  if [ "$?" != "0" ]; then
-   working=0
-  fi
-  if [ "$working" == "1" ]; then
-  wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/KBatus.sh
-  echo $PATH | grep "$USER/.local/bin"
-  if [ "$?" == "1" ]; then
-   cp -v ./KBatus.sh.sh $USER/.local/bin/kbatus
-   chmod -v +x $USER/.local/bin/kbatus
-   if [ "$1" != "--debug" ]; then clear; fi
-   echo "All done! To run Batus write kbatus"
-   exit
-  fi
-  echo
-  echo
-  echo "To continue please enter admin password:"
-  sudo cp -v ./Batus.sh.sh /usr/bin/kbatus
-  sudo chmod -v +x /usr/bin/kbatus
-  if [ "$1" != "--debug" ]; then clear; fi
-  echo "All done! To run Batus write kbatus"
-  exit
-  fi
-fi
-fi
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 if [ "$XDG_SESSION_TYPE" == "wayland" ] || [ "$XDG_SESSION_TYPE" == "x11" ]; then
