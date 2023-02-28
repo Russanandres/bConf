@@ -157,18 +157,20 @@ echo -e "${Green}
         If you don't know how to enable it, select /usr/bin!${No_color}
 
 ${BIBlue}         - Type [B] to /usr/bin/
-         - Type [L] to /home/$USER/.local/bin/${No_color}
+         - Type [L] to /home/$USER/.local/bin/
+         - Type [J] to download in current directory${No_color}
 "
 #         - Type [Y] to Your custom path.
 echo
 read -sn1 ipath
-if [ "$ipath" == "B" ] || [ "$ipath" == "b" ] || [ "$ipath" == "L" ] || [ "$ipath" == "l" ]; then nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd;else selINconfERROR; fi;}
+if [ "$ipath" == "B" ] || [ "$ipath" == "b" ] || [ "$ipath" == "L" ] || [ "$ipath" == "l" ]|| [ "$ipath" == "J" ]|| [ "$ipath" == "j" ]; then nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd;else selINconfERROR; fi;}
 
 
 function nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd(){
 case "$ipath" in
 "B"|"b" ) path="/usr/bin$inst";;
 "L"|"l" ) path="/home/$USER/.local/bin$inst";;
+"J"|"j" ) path="$(pwd)";;
 esac
 
 case "$yde" in
@@ -189,7 +191,7 @@ wget https://raw.githubusercontent.com/Russanandres/YDE/main/de.sh
    sudo cp -v ./de.sh $path/$inst
    sudo chmod -v +x $path/$inst
    if [ "$debug" == "0" ]; then clear; fi
-   echo "All done! To run YDE write $inst"
+   echo "All done! To start YDE run $inst"
    exit
 }
 
@@ -199,7 +201,7 @@ wget https://raw.githubusercontent.com/Russanandres/YDE/main/dev.sh
    sudo cp -v ./dev.sh $path/$inst
    sudo chmod -v +x $path/$inst
    if [ "$debug" == "0" ]; then clear; fi
-   echo "All done! To run YDE dev write $inst"
+   echo "All done! To start YDE dev run $inst"
    exit
 }
 
@@ -210,7 +212,7 @@ sudo apt install kdialog
    sudo cp -v ./KBatus.sh $path/$inst
    sudo chmod -v +x $path/$inst
    if [ "$debug" == "0" ]; then clear; fi
-   echo "All done! To run Batus write $inst"
+   echo "All done! To start Batus run $inst"
    exit
 }
 
@@ -221,7 +223,7 @@ wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versi
    sudo cp -v ./BatusLin.sh $path/$inst
    sudo chmod -v +x $path/$inst
    if [ "$debug" == "0" ]; then clear; fi
-   echo "All done! To run Batus write $inst"
+   echo "All done! To start Batus run $inst"
    exit
 }
 
@@ -230,7 +232,7 @@ wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/For%20Legac
    sudo cp -v ./BFL.sh $path/$inst
    sudo chmod -v +x $path/$inst
    if [ "$debug" == "0" ]; then clear; fi
-   echo "All done! To run BFL write $inst"
+   echo "All done! To start BFL run $inst"
    exit
 }
 
