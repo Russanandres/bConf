@@ -1,3 +1,5 @@
 WiP, only dev releases.
 
-Working, lot of bugs, low functionality and poor UX. Please create ussues on Pull requests if you interested in this project.
+Working, lot of bugs, low functionality Please create ussues on Pull requests if you interested in this project.
+
+Other languages not planned. IDK how to implement it.
