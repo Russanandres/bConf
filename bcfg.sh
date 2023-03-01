@@ -26,23 +26,17 @@ function exitscr(){
  exit
 }
 
-function ijusttryingtodoagoodinterface(){
-clear
-echo
-echo -e "${BIGreen}[Any button]${No_color} - ${BIRed}I NOTHING UNDERSTAND JUST INSTALL IT!!!${No_color}"
-echo -e "${BIGreen}[c]${No_color} - ${BIBlue}Let me setup everything.${No_color}"
-echo
-read -sn1
-}
-
 resize="0"; debug="0"; delete="0"
 if [ "$1" == "-v" ]; then exit
-elif [ "$1" == "-he" ] || [ "$1" == "--help" ]; then curl https://raw.githubusercontent.com/Russanandres/bConf/main/README.md
+elif [ "$1" == "-he" ] || [ "$1" == "--help" ]; then curl https://raw.githubusercontent.com/Russanandres/bConf/main/README.md;exit
 elif [ "$1" == "-fq" ] || [ "$1" == "--force-quit" ]; then exitscr
 elif [ "$1" == "-nr" ] || [ "$1" == "--no-resize" ]; then resize="1"
 elif [ "$1" == "-de" ] || [ "$1" == "--debug" ]; then debug="1"
 elif [ "$1" == "-dl" ] || [ "$1" == "--delete-old" ]; then delete="1"
 fi
+
+
+source ./bcfg.conf
 
 
 function selINconfERROR(){
@@ -55,7 +49,7 @@ echo -e "${BIRed}
 
        Somewhere in Configurator exist ${BIRed}error!${No_color}
 
-       Try to check ${Green}data${No_color}, what you try to shove.
+       Try to check ${Green}data${No_color}, what you try to enter.
        If your data 100% right, create issue on github.
 
 ${BIBlue}        - Press ENTER to continue.
@@ -262,11 +256,10 @@ fi
 
 
 if [ "$XDG_SESSION_TYPE" == "wayland" ] || [ "$XDG_SESSION_TYPE" == "x11" ]; then
+sudo apt install kdialog
 kdialog
 if [ "$?" == "0" ]; then
  working=1
- sudo apt install kdialog
-  if [ "$?" != "0" ]; then working=0; fi
   if [ "$working" == "1" ]; then
   wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/KBatus.sh
   echo $PATH | grep "$USER/.local/bin"
@@ -274,7 +267,7 @@ if [ "$?" == "0" ]; then
    cp -v ./KBatus.sh.sh $USER/.local/bin/kbatus
    chmod -v +x $USER/.local/bin/kbatus
   else
-  echo "To continue please enter admin password:"
+  echo "To continue please enter root password:"
   sudo cp -v ./Batus.sh.sh /usr/bin/kbatus
   sudo chmod -v +x /usr/bin/kbatus
   fi
@@ -301,7 +294,7 @@ if [ "$?" == "0" ]; then
    chmod -v +x $USER/.local/bin/batus
    if [ "$debug" == "0" ]; then clear; fi
   else
-  echo "To continue please enter admin password:"
+  echo "To continue please enter root password:"
   sudo cp -v ./Batus.sh.sh /usr/bin/batus
   sudo chmod -v +x /usr/bin/batus
   fi
@@ -319,7 +312,7 @@ echo $PATH | grep "$USER/.local/bin"
    chmod -v +x $USER/.local/bin/bfl
    if [ "$debug" == "0" ]; then clear; fi
   else
-  echo "To continue please enter admin password:"
+  echo "To continue please enter root password:"
   sudo cp -v ./BFL.sh /usr/bin/bfl
   sudo chmod -v +x /usr/bin/bfl
   fi
