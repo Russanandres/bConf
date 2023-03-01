@@ -6,7 +6,7 @@ intbat="/usr/bin/batus"
 intkbat="/usr/bin/kbatus"
 
 YDEdep="ncal dialog wget bash w3m w3m-img mc mpv aplay grep sudo"
-BATdep="dialog adb android-libadb fastboot grep sudo"
+BATdep="dialog adb fastboot grep sudo"
 KBATde="kdialog dialog ncal adb fastboot grep sudo"
 
 Green='\033[0;32m'
@@ -18,6 +18,7 @@ BYellow='\033[1;33m'
 No_color='\033[0m'
 
 function pause(){ read -sn1 pause; }
+function cls(){ if [ "$debug" == "0" ]; then clear; fi; }
 function exitscr(){
  if [ "$debug" == "0" ]; then clear; fi
  echo -e "batusConfigurator. By ${BIBlue}Russanandres${No_color}"
@@ -36,11 +37,8 @@ elif [ "$1" == "-dl" ] || [ "$1" == "--delete-old" ]; then delete="1"
 fi
 
 
-source ./bcfg.conf
-
-
 function selINconfERROR(){
-clear
+cls
 echo -e "${BIRed}
     ┌────────────────────────────────────────────────────────────────────────────┐
     │ Configurator error!                                         [Setup error!] │
@@ -55,13 +53,11 @@ echo -e "${BIRed}
 ${BIBlue}        - Press ENTER to continue.
         - Press CTRL + C to exit.${No_color}
 "
-pause
-$scr
-}
+pause; $scr;}
 
 function startbconf(){
 scr="startbconf"
-if [ "$debug" == "0" ]; then clear; fi
+cls
 parts=4
 if [ "$resize" == "0" ]; then printf '\033[8;26;84t'; fi ### I DONT KNOW WHY BUT IT DOESNT WORK AS IT SHOULD. BASH, WHYYYYYYYYYYYYYYYYYY. It works as now, but here is a bad code((
 echo
@@ -80,7 +76,7 @@ ${BIBlue}       - Press ENTER to continue.
        - Press CTRL + C to exit."${No_color}
 echo
 pause
-if [ "$debug" == "0" ]; then clear; fi
+cls
 echo
 echo -e "${Green}
    ┌────────────────────────────────────────────────────────────────────────────┐
@@ -95,11 +91,10 @@ ${BIBlue}         - Type [B] to Batus
 echo
 read -sn1 two
 if [ "$two" == "Y" ] || [ "$two" == "y" ]; then yde; fi
-if [ "$two" == "B" ] || [ "$two" == "b" ]; then confbat;else selINconfERROR; fi
-}
+if [ "$two" == "B" ] || [ "$two" == "b" ]; then confbat;else selINconfERROR; fi;}
 function yde(){
 scr="yde"
-if [ "$debug" == "0" ]; then clear; fi
+cls
 echo
 echo -e "${Green}
    ┌────────────────────────────────────────────────────────────────────────────┐
@@ -116,7 +111,7 @@ read -sn1 yde
 if [ "$yde" == "R" ] || [ "$yde" == "r" ] || [ "$yde" == "D" ] || [ "$yde" == "d" ]; then confpath;else selINconfERROR; fi;}
 function confbat(){
 scr="confbat"
-if [ "$debug" == "0" ]; then clear; fi
+cls
 echo
 echo -e "${Green}
    ┌────────────────────────────────────────────────────────────────────────────┐
@@ -137,7 +132,7 @@ read -sn1 batusver
 if [ "$batusver" == "K" ] || [ "$batusver" == "k" ] || [ "$batusver" == "G" ] || [ "$batusver" == "g" ] || [ "$batusver" == "T" ] || [ "$batusver" == "t" ]; then confpath;else selINconfERROR; fi;}
 function confpath(){
 scr="confpath"
-if [ "$debug" == "0" ]; then clear; fi
+cls
 echo
 echo -e "${Green}
    ┌────────────────────────────────────────────────────────────────────────────┐
@@ -147,11 +142,11 @@ echo -e "${Green}
 
         Select install path:
         ${BIRed}Warning!
-        To install in /home/$USER/.local/bin/ you need enable this path!
+        To install in $HOME/.local/bin/ you need enable this path!
         If you don't know how to enable it, select /usr/bin!${No_color}
 
 ${BIBlue}         - Type [B] to /usr/bin/
-         - Type [L] to /home/$USER/.local/bin/
+         - Type [L] to $HOME/.local/bin/
          - Type [J] to download in current directory${No_color}
 "
 #         - Type [Y] to Your custom path.
@@ -159,78 +154,69 @@ echo
 read -sn1 ipath
 if [ "$ipath" == "B" ] || [ "$ipath" == "b" ] || [ "$ipath" == "L" ] || [ "$ipath" == "l" ]|| [ "$ipath" == "J" ]|| [ "$ipath" == "j" ]; then nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd;else selINconfERROR; fi;}
 
+function quit(){ cls; echo "All done! To start $name run $inst"; exit; }
 
 function nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd(){
 case "$ipath" in
-"B"|"b" ) path="/usr/bin$inst";;
-"L"|"l" ) path="/home/$USER/.local/bin$inst";;
+"B"|"b" ) sudo="sudo"; path="/usr/bin$inst";;
+"L"|"l" ) sudo=""; path="$HOME/.local/bin$inst";;
 "J"|"j" ) path="$(pwd)";;
 esac
 
 case "$yde" in
-"R"|"r" ) inst="runui";iR;;
-"D"|"d" ) inst="runuidev";iD;;
+"R"|"r" ) name="YDE"; inst="runui";iR;;
+"D"|"d" ) name="YDE dev"; inst="runuidev";iD;;
 esac
 
 case "$batusver" in
-"K"|"k" ) inst="kbatus";iK;;
-"G"|"g" ) inst="batus";iG;;
-"T"|"t" ) inst="bfl";iT;;
+"K"|"k" ) name="KBatus"; inst="kbatus";iK;;
+"G"|"g" ) name="Batus"; inst="batus";iG;;
+"T"|"t" ) name="BFL"; inst="bfl";iT;;
 esac
 }
 
 function iR(){
-wget https://raw.githubusercontent.com/Russanandres/YDE/main/de.sh
-   sudo apt install $dede -y
-   sudo cp -v ./de.sh $path/$inst
-   sudo chmod -v +x $path/$inst
-   if [ "$debug" == "0" ]; then clear; fi
-   echo "All done! To start YDE run $inst"
-   exit
+ wget https://raw.githubusercontent.com/Russanandres/YDE/main/de.sh
+ sudo apt install $YDEdep -y
+ $sudo mv -v de.sh $path/$inst
+ $sudo chmod -v +x $path/$inst
+ quit
 }
 
 function iD(){
-wget https://raw.githubusercontent.com/Russanandres/YDE/main/dev.sh
-   sudo apt install $dede -y
-   sudo cp -v ./dev.sh $path/$inst
-   sudo chmod -v +x $path/$inst
-   if [ "$debug" == "0" ]; then clear; fi
-   echo "All done! To start YDE dev run $inst"
-   exit
+ wget https://raw.githubusercontent.com/Russanandres/YDE/main/dev.sh
+ sudo apt install $YDEdep -y
+ $sudo mv -v dev.sh $path/$inst
+ $sudo chmod -v +x $path/$inst
+ quit
 }
 
 function iK(){
-sudo apt install kdialog
  wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/KBatus.sh
-   sudo apt install $kbade -y
-   sudo cp -v ./KBatus.sh $path/$inst
-   sudo chmod -v +x $path/$inst
-   if [ "$debug" == "0" ]; then clear; fi
-   echo "All done! To start Batus run $inst"
-   exit
+ sudo apt install $KBATde -y
+ $sudo mv -v KBatus.sh $path/$inst
+ $sudo chmod -v +x $path/$inst
+ quit
 }
 
-
 function iG(){
-wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/BatusLin.sh
-   sudo apt install $bade -y
-   sudo cp -v ./BatusLin.sh $path/$inst
-   sudo chmod -v +x $path/$inst
-   if [ "$debug" == "0" ]; then clear; fi
-   echo "All done! To start Batus run $inst"
-   exit
+ wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/BatusLin.sh
+ sudo apt install $BATdep -y
+ $sudo mv -v BatusLin.sh $path/$inst
+ $sudo chmod -v +x $path/$inst
+ qiut
 }
 
 function iT(){
-wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/For%20Legacy%20Systems/BFL.sh
-   sudo cp -v ./BFL.sh $path/$inst
-   sudo chmod -v +x $path/$inst
-   if [ "$debug" == "0" ]; then clear; fi
-   echo "All done! To start BFL run $inst"
-   exit
+ wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/For%20Legacy%20Systems/BFL.sh
+ $sudo mv -v BFL.sh $path/$inst
+ $sudo chmod -v +x $path/$inst
+ quit
 }
 
-if [ "$debug" == "0" ]; then clear; fi
+
+
+cls
 echo
 echo -e "${BIGreen}[Any button]${No_color} - ${BIRed}I NOTHING UNDERSTAND JUST INSTALL IT!!!${No_color}"
 echo -e "${BIGreen}[c]${No_color} - ${BIBlue}Let me setup everything.${No_color}"
@@ -238,7 +224,6 @@ echo
 read -sn1 ch
 case "$ch" in
 "c" ) startbconf;;
-"=" ) clear; debugfeatures; exit;;
 *   )
 
 if [ "$delete" == "0" ]; then
@@ -247,79 +232,46 @@ if [ "$delete" == "0" ]; then
  if [ -f /usr/bin/batus ]; then sudo rm /usr/bin/batus; fi
  if [ -f /usr/bin/bfl ]; then sudo rm /usr/bin/bfl; fi
 
- if [ -f $USER/.local/bin/kbatus ]; then rm $USER/.local/bin/kbatus; fi
- if [ -f $USER/.local/bin/batus ]; then rm $USER/.local/bin/batus; fi
- if [ -f $USER/.local/bin/bfl ]; then rm $USER/.local/bin/bfl; fi
+ if [ -f $HOME/.local/bin/kbatus ]; then rm $HOME/.local/bin/kbatus; fi
+ if [ -f $HOME/.local/bin/batus ]; then rm $HOME/.local/bin/batus; fi
+ if [ -f $HOME/.local/bin/bfl ]; then rm $HOME/.local/bin/bfl; fi
 fi
 
-# if [ -f $USER/.config/YDE/settings.conf ]; then source $USER/.config/YDE/settings.conf; sudo rm $int; fi
+# if [ -f $HOME/.config/YDE/settings.conf ]; then source $HOME/.config/YDE/settings.conf; sudo rm $int; fi
+
+echo $PATH | grep "$HOME/.local/bin"
+if [ "$?" == "0" ]; then
+ sudo=""; path="$HOME/.local/bin"
+else
+ sudo="sudo"; path="/usr/bin"
+fi
 
 
 if [ "$XDG_SESSION_TYPE" == "wayland" ] || [ "$XDG_SESSION_TYPE" == "x11" ]; then
-sudo apt install kdialog
-kdialog
-if [ "$?" == "0" ]; then
- working=1
-  if [ "$working" == "1" ]; then
-  wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/KBatus.sh
-  echo $PATH | grep "$USER/.local/bin"
-  if [ "$?" == "0" ]; then
-   cp -v ./KBatus.sh.sh $USER/.local/bin/kbatus
-   chmod -v +x $USER/.local/bin/kbatus
-  else
-  echo "To continue please enter root password:"
-  sudo cp -v ./Batus.sh.sh /usr/bin/kbatus
-  sudo chmod -v +x /usr/bin/kbatus
-  fi
-  echo;echo
-  if [ "$debug" == "0" ]; then clear; fi
-  echo "All done! To run Batus write kbatus"
-  exit
-  fi
-fi
+ sudo apt install kdialog
+ kdialog --version
+ if [ "$?" == "0" ]; then
+  wget --tries=0 https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/KBatus.sh
+  $sudo mv -v KBatus.sh $path/kbatus
+  $sudo chmod -v +x $path/kbatus
+  sudo apt install $KBATde
+  cls;echo;echo;echo "All done! To run Batus write kbatus";exit
+ fi
 fi
 
+sudo apt install bash
 bash --version >> /dev/null
 if [ "$?" == "0" ]; then
- working=1
- sudo apt install bash
-  if [ "$?" != "0" ]; then
-   working=0
-  fi
-  if [ "$working" == "1" ]; then
-  wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/Batus.sh
-  echo $PATH | grep "$USER/.local/bin"
-  if [ "$?" == "0" ]; then
-   cp -v ./Batus.sh.sh $USER/.local/bin/batus
-   chmod -v +x $USER/.local/bin/batus
-   if [ "$debug" == "0" ]; then clear; fi
-  else
-  echo "To continue please enter root password:"
-  sudo cp -v ./Batus.sh.sh /usr/bin/batus
-  sudo chmod -v +x /usr/bin/batus
-  fi
-  fi
-  echo;echo
-  if [ "$debug" == "0" ]; then clear; fi
-  echo "All done! To run Batus write batus"
-  exit
+ wget --tries=0 https://raw.githubusercontent.com/Russanandres/batus-linux/main/all%20versions/lastversion/Batus.sh
+ $sudo mv -v Batus.sh $path/batus
+ $sudo chmod -v +x $path/batus
+ sudo apt install $BATdep
+ cls;echo;echo;echo "All done! To run Batus write batus";exit
 fi
 
-wget https://raw.githubusercontent.com/Russanandres/batus-linux/main/For%20Legacy%20Systems/BFL.sh
-echo $PATH | grep "$USER/.local/bin"
-  if [ "$?" == "0" ]; then
-   cp -v ./BFL.sh $USER/.local/bin/bfl
-   chmod -v +x $USER/.local/bin/bfl
-   if [ "$debug" == "0" ]; then clear; fi
-  else
-  echo "To continue please enter root password:"
-  sudo cp -v ./BFL.sh /usr/bin/bfl
-  sudo chmod -v +x /usr/bin/bfl
-  fi
-  echo;echo
-  if [ "$debug" == "0" ]; then clear; fi
-  echo "All done! To run Batus write bfl"
-  exit
-;;
-esac
+wget --tries=0 https://raw.githubusercontent.com/Russanandres/batus-linux/main/For%20Legacy%20Systems/BFL.sh
+$sudo mv -v BFL.sh $path/bfl
+$sudo chmod -v +x $path/bfl
+cls;echo;echo;echo "All done! To run Batus write bfl";exit
+;; esac
 echo "My script totally Dark Side of The Code!" ### It's a easter egg lol. Its never appears at screen, so don't translate it.
