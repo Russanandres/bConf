@@ -27,14 +27,32 @@ function exitscr(){
  exit
 }
 
+
+
+function helpscr(){
+echo "bcfg. By Russanandres.
+Usage: bcfg.sh [option]
+Availiable options:
+    -v | --version      >>  Show script version
+    -f | --force-quit   >>  Force quit from script
+    -r | --no-resize    >>  Do not try to resize terminal
+    -h | --help         >>  Show help manual
+    -e | --delete-old   >>  Delete installed apps before install"; exit
+}
+
 resize="0"; debug="0"; delete="0"
-if [ "$1" == "-v" ]; then exit
-elif [ "$1" == "-he" ] || [ "$1" == "--help" ]; then curl https://raw.githubusercontent.com/Russanandres/bConf/main/README.md;exit
-elif [ "$1" == "-fq" ] || [ "$1" == "--force-quit" ]; then exitscr
-elif [ "$1" == "-nr" ] || [ "$1" == "--no-resize" ]; then resize="1"
-elif [ "$1" == "-de" ] || [ "$1" == "--debug" ]; then debug="1"
-elif [ "$1" == "-dl" ] || [ "$1" == "--delete-old" ]; then delete="1"
-fi
+while [ "$1" != "" ]; do
+    case $1 in
+        -v | --version)        echo $VER; exit;;
+        -q | --force-quit)     exitscr;;
+        -r | --no-resize )     resize="1";;
+        -d | --debug )         debug="1";;
+        -h | --help )          helpscr;;
+        -e | --delete-old )    delete="1";;
+    esac
+    shift
+done
+
 
 
 function selINconfERROR(){
@@ -90,8 +108,11 @@ ${BIBlue}         - Type [B] to Batus
          - Type [Y] to YDE."${No_color}
 echo
 read -sn1 two
-if [ "$two" == "Y" ] || [ "$two" == "y" ]; then yde; fi
-if [ "$two" == "B" ] || [ "$two" == "b" ]; then confbat;else selINconfERROR; fi;}
+case $two in
+Y | y ) yde;;
+B | b ) confbat;;
+* ) selINconfERROR;;
+esac;}
 function yde(){
 scr="yde"
 cls
@@ -108,7 +129,10 @@ ${BIBlue}         - Type [R] to install release version.
          - Type [D] to install debug dev version."${No_color}
 echo
 read -sn1 yde
-if [ "$yde" == "R" ] || [ "$yde" == "r" ] || [ "$yde" == "D" ] || [ "$yde" == "d" ]; then confpath;else selINconfERROR; fi;}
+case $yde in
+R | D | r | d ) confpath;;
+* ) selINconfERROR;;
+esac;}
 function confbat(){
 scr="confbat"
 cls
@@ -129,7 +153,10 @@ ${BIBlue}         - Type [K] to Kdialog Batus.
 #         - Type [] to Text menu.
 echo
 read -sn1 batusver
-if [ "$batusver" == "K" ] || [ "$batusver" == "k" ] || [ "$batusver" == "G" ] || [ "$batusver" == "g" ] || [ "$batusver" == "T" ] || [ "$batusver" == "t" ]; then confpath;else selINconfERROR; fi;}
+case $batusver in
+K | G | T | k | g | t ) confpath;;
+* ) selINconfERROR;;
+esac;}
 function confpath(){
 scr="confpath"
 cls
@@ -152,11 +179,14 @@ ${BIBlue}         - Type [B] to /usr/bin/
 #         - Type [Y] to Your custom path.
 echo
 read -sn1 ipath
-if [ "$ipath" == "B" ] || [ "$ipath" == "b" ] || [ "$ipath" == "L" ] || [ "$ipath" == "l" ]|| [ "$ipath" == "J" ]|| [ "$ipath" == "j" ]; then nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd;else selINconfERROR; fi;}
+case $ipath in
+B | L | J | b | l | j ) installer;;
+* ) selINconfERROR;;
+esac;}
 
 function quit(){ cls; echo "All done! To start $name run $inst"; exit; }
 
-function nowwewanttoinstallalldamnthingsthatuserchooseinhissystemandwegonnabreakalltherelolgoodbyesystemxd(){
+function installer(){
 case "$ipath" in
 "B"|"b" ) sudo="sudo"; path="/usr/bin$inst";;
 "L"|"l" ) sudo=""; path="$HOME/.local/bin$inst";;
@@ -274,4 +304,3 @@ $sudo mv -v BFL.sh $path/bfl
 $sudo chmod -v +x $path/bfl
 cls;echo;echo;echo "All done! To run Batus write bfl";exit
 ;; esac
-echo "My script totally Dark Side of The Code!" ### It's a easter egg lol. Its never appears at screen, so don't translate it.
